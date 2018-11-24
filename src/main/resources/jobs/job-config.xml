@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/batch
+           http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
+
+	<!-- Start Job Configuration -->
+	<batch:job id="fxCardRateJob">
+		<batch:step id="fxCardRateGenFileStep" next="fxCardRateSendMailStep">
+			<batch:tasklet ref="fxCardRateGenFileTasklet"/>
+		</batch:step>
+		<batch:step id="fxCardRateSendMailStep">
+			<batch:tasklet ref="fxCardRateSendMailTasklet"/>
+		</batch:step>
+	</batch:job>
+	<!-- End Job Configuration -->
+	<bean class="org.springframework.batch.core.scope.StepScope" />
+
+</beans>
